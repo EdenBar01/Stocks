@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    build:
+      dockerfile: Dockerfile.debug
+    ports:
+      - 8000:8000
+      - 9229:9229
+    depends_on:
+      - mysql_server
+    restart: always
+    environment: 
+      - MYSQL_HOST=${MYSQLCONTAINER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    command: sh -c "sleep 3 && node server.js"
+    volumes:
+      - ${PWD}:/data/app
+
+  mysql_server:
+    image: mysql:8.0
+    container_name: ${MYSQLCONTAINER}
+    environment: 
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

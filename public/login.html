@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Screen</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Bootstrap Example</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+
+</head>
+<body>
+	<div class="container">
+		<h1>Log In to your account</h1>
+		<form>
+			<label for="username">Email or Phone or Username:</label>
+			<input type="text" id="username" name="username">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+
+			<button type="submit" onclick="validateForm()">Log In</button>
+		</form>
+
+		<a href="#" class="forgot-password">Forgot Password?</a>
+
+		<span class="create-account">Need to create an account? <a href="file:///Users/inbarmizrahi/Desktop/3Y_b/client%20server%20lab/project/signUp.html">Sign Up</a></span>
+	</div>
+	<script>
+		function validateEmail(email) {
+		  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		  return emailRegex.test(email);
+		}
+	  
+		function validatePassword(password) {
+		  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.,><])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.,><]{6,}$/;
+		  return passwordRegex.test(password);
+		}
+	  
+		function validateForm() {
+		  const email = document.getElementById("username").value;
+		  const password = document.getElementById("password").value;
+		  let errorMessage = "";
+		
+		//   if (email === "Admin" && password === "Admin") {
+
+		// 		window.location.href = "http://localhost:8080/contact-us";
+		//   }
+
+		//   if (!validateEmail(email)) {
+		// 	errorMessage += "Please enter a valid email address.\n";
+		//   }
+	  
+		//   if (!validatePassword(password)) {
+		// 	errorMessage += "Please enter a valid password.\n";
+		//   }
+	  
+		  if (errorMessage !== "") {
+			alert(errorMessage);
+		  } else {
+			alert("Form submitted successfully!"+"\nThe Email: "+email + "\nThe Password: "+password);
+		  }
+
+		}
+	  
+		document.getElementById("login-form").addEventListener("submit", validateForm);
+
+	  </script>
+	  
+</body>
+</html>
