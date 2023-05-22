@@ -5,6 +5,6 @@ const router = express.Router();
 
 module.exports = (connection) => {
   // Pass the connection object to all API routes
-  router.use('/users', require('./users/auth')(connection));
+  router.use('/users', require('./users/auth.js')(connection));
   return router;
 };

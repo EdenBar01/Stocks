@@ -4,8 +4,9 @@ const router = express.Router();
 module.exports = (connection) => {
 
   // register route handler
-  router.post('/users/register', async (req, res) => {
+  router.post('/api/users/register', async (req, res) => {
       try {
+        
           const { username, password } = req.body;
       
           // Check if the username is already taken
