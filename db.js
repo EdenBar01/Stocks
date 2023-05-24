@@ -18,6 +18,22 @@ connection.connect(function(err) {
     
   });
 
+// Create the user table
+const createUserTableQuery = `
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+)
+`;
+connection.query(createUserTableQuery, (errpr) => {
+  if (errpr) throw errpr;
+  else {
+    console.log('User table created');
+  }
+})
+
+
 module.exports = (connection) => {
     // Return the connection object
     return connection;
