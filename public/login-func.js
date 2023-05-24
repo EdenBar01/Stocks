@@ -1,64 +1,87 @@
 function login() {
-    const email = document.getElementById("username").value;
+    const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    const errors = validateForm(email, password);
-    if (errors.length > 0) {
-        // Display the error messages to the user
-        for (let i = 0; i < errors.length; i++) {
-            alert(errors[i]);
-        }
-    } else {
-        $.post('/api/users/login', { email, password })
-            .done(function(response) {
-                // Check the response from the server
-                if (response.success) {
-                    alert('Login successful!');
-                    // Perform any additional actions or redirect the user to another page
-                } else {
-                    alert('Invalid username or password. Please try again.');
-                }
-            })
-            .fail(function(error) {
-                console.error('An error occurred:', error);
-            });
-    }
-}
-
-function submitSignupForm() {
-    const username = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-
-    // Check if the passwords match
-    if (password !== confirmPassword) {
-      alert('Passwords do not match. Please try again.');
-      return;
-    }
     const errors = validateForm(username, password);
     if (errors.length > 0) {
         // Display the error messages to the user
         for (let i = 0; i < errors.length; i++) {
             alert(errors[i]);
         }
-    }
-    else{ 
-        // Make an API call to register a new user
-        $.post('/api/users/register', { username, password })
-        .done(function(response) {
-            // Check the response from the server
-            if (response.success) {
-            alert('Signup successful! You can now login with your new account.');
-            // Perform any additional actions or redirect the user to another page
-            } else {
-            alert('Signup failed. Please try again.');
-            }
+    } else {
+        const requestBody = JSON.stringify({ username, password });
+
+        // Send the request
+        fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: requestBody
         })
-        .fail(function(error) {
-            console.error('An error occurred:', error);
+        .then(response => response.json()) // Parse response as JSON
+        .then(data => {
+          // Handle the response data
+          if (data.success) {
+            alert(data.message);
+
+            // Perform any additional actions or redirect the user to another page
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          console.error('An error occurred:', error);
         });
     }
 }
+
+
+// function submitSignupForm1(){
+//     res.post('/api/signup', {
+// }
+function submitSignupForm() {
+    const username = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+  
+    // Check if the passwords match
+    if (password !== confirmPassword) {
+      alert('Passwords do not match. Please try again.');
+      return;
+    }
+  
+    const errors = validateForm(username, password);
+    if (errors.length > 0) {
+      // Display the error messages to the user
+      errors.forEach((error) => {
+        alert(error);
+      });
+    } else {
+        const requestBody = JSON.stringify({ username, password });
+
+        // Send the request
+        fetch('/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: requestBody
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Handle the response data
+            if (data.success) {
+              alert(data.message);
+            } else {
+              alert('Invalid username or password. Please try again.');
+            }
+          })
+          .catch(error => {
+            console.error('An error occurred:', error);
+            alert(error);
+          });
+    }
+  }
 
 function validateForm(email, password) {
     let errorMessages = [];

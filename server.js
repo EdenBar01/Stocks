@@ -14,13 +14,6 @@ const db = require('./db');
 // set mysql connection
 const connection = db();
 
-// Import the API routes and pass the connection object
-const apiRoutes = require('./api/index')(connection);
-
-// Use the API routes
-app.use('/api', apiRoutes);
-
-
 //set port
 var port = process.env.PORT || 8000;
 
@@ -30,14 +23,14 @@ app.use(bodyParser.json());
 
 
 
-// // Read all files in the 'api' folder
-// fs.readdirSync('./api').forEach(file => {
-//   // Exclude non-JavaScript files and index.js
-//   if (file.endsWith('.js') && file !== 'index.js') {
-//     const route = require(`./api/${file}`);
-//     app.use('/', route);
-//   }
-// });
+ // Read all files in the 'api' folder
+fs.readdirSync('./api').forEach(file => {
+   // Exclude non-JavaScript files and index.js
+  if (file.endsWith('.js') && file !== 'index.js') {
+    const route = require(`./api/${file}`);
+    app.use('/', route);
+  }
+});
 
 app.get('/', (req, res) => {
   res.sendFile('public/login.html', { root: __dirname });
