@@ -15,7 +15,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    command: sh -c "sleep 3 && node server.js"
+    command: sh -c "sleep 3 && node ./src/server.js"
     volumes:
       - ${PWD}:/data/app
 
@@ -29,3 +29,4 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - API_KEY=${API_KEY}
