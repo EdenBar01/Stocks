@@ -31,12 +31,13 @@
           			headers: {'Content-Type': 'application/json'},
           			body: requestBody
         		  })
-				.then(function (response) {
-					if (response.redirected){
-						window.location.href = response.url
-					}
-					else{
-						alert('Invalid username or password. Please try again.');
+				  .then(response => response.json())
+				.then(data => {
+					// Handle the response data
+					if (data.success) {
+						alert(data.message);
+					} else {
+					alert('Invalid username or password. Please try again.');
 					}
 				})
 		}

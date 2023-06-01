@@ -5,10 +5,7 @@ const { cookieJwtAuth } = require('./middleware/cookieJwtAuth');
 const bodyParser = require('body-parser');
 const db = require('./middleware/db');
 const coolRoute = require('./routes/cooler');
-const loginRoute = require('./routes/login');
-const registerRoute = require('./routes/register');
 const Path = require('path');
-
 const authRouter = require('./routes/auth');
 
 // Create an Express application
