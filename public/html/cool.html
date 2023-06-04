@@ -23,6 +23,7 @@
 </head>
 
 <body id="page-top">
+    <script src="../../src/routes/graph.js" ></script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -326,18 +327,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="small mb-1">Choose Stock:</div>
                         <div class="dropdown mb-4">
                             <button class="btn btn-primary dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                Dropdown
+                                Stocks
                             </button>
                             <div class="dropdown-menu animated--fade-in"
                                 aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#" onclick="getData('URA')">URA</a>
+                                <a class="dropdown-item" href="#" onclick="getData('TSLA')">TSLA</a>
+                                <a class="dropdown-item" href="#" onclick="getData('CPE')">CPE</a>
+                                <a class="dropdown-item" href="#" onclick="getData('WIX')">WIX</a>
                             </div>
                         </div>
                     </div>
