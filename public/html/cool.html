@@ -339,8 +339,10 @@
                                 <a class="dropdown-item" href="#" onclick="getData('TSLA')">TSLA</a>
                                 <a class="dropdown-item" href="#" onclick="getData('CPE')">CPE</a>
                                 <a class="dropdown-item" href="#" onclick="getData('WIX')">WIX</a>
+                                
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -405,7 +407,27 @@
 
     <!-- Page level custom scripts -->
     <script src="../js/chart-area-demo.js"></script>
+	<script>
+        function getData(symbol) {
+        const requestBody = JSON.stringify({ symbol });
+        fetch('/api/stocks', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: requestBody
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('all good in the hhoood');
+            alert(data.object)
+            // Dispatch a custom event with the data
+            window.dispatchEvent(new CustomEvent('stockDataReceived', { detail: data.object }));
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        }
 
+	</script>
 </body>
 
 </html>

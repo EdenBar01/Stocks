@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
   }
   const token = jwt.sign(user, "hello_world", {expiresIn: "1h"})
   res.cookie("token", token, {httpOnly: true});
-  return res.json({success: true, message : 'logged in successfuly' });
+  return res.json({success: true, message : 'logged in successfuly', redirect: '/cool_route'});
   })
 });
 

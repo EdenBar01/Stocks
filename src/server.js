@@ -7,7 +7,7 @@ const db = require('./middleware/db');
 const coolRoute = require('./routes/cooler');
 const Path = require('path');
 const authRouter = require('./routes/auth');
-
+const apiRouter = require('./api/graph');
 // Create an Express application
 const app = express();
 
@@ -22,6 +22,7 @@ const connection = db();
 
 app.use('/auth',authRouter);
 
+app.use('/api', apiRouter);
 // set routes
 app.get('/', (req, res) => {
     res.sendFile(Path.join(__dirname, '../public/html/login.html'));

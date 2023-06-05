@@ -27,22 +27,15 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-fetch('/graph')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); // Array of open values
-    // Use the data as needed
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
-
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+const data = [0.5, 10000.5, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000, 1,2, 123];
+
+const labels = Array.from({ length: data.length }, (_, i) => `Label ${i + 1}`);
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: labels,
     datasets: [{
       label: "Earnings",
       lineTension: 0.3,
@@ -56,7 +49,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: data,
     }],
   },
   options: {
@@ -125,4 +118,30 @@ var myLineChart = new Chart(ctx, {
       }
     }
   }
+});
+
+// function updateChart(data) {
+//   const chart = Chart.getChart("myAreaChart"); // Get a reference to the existing chart
+//   const bla =[0.5, 10000.5, 5000, 15000];
+//   const labels = Array.from({ length: bla.length }, (_, i) => `Label ${i + 1}`);
+//   if (chart) {
+//     chart.data.datasets[0].data = bla;
+//     chart.data.datasets[0].labels = labels;
+//     chart.update();
+//   }
+// }
+
+function updateChart(data) {
+  const chart = myLineChart; // Get a reference to the existing chart
+  const labels = Array.from({ length: data.length }, (_, i) => `Label ${i + 1}`);
+  if (chart) {
+    chart.data.datasets[0].data = data;
+    chart.data.labels = labels;
+    chart.update();
+  }
+}
+
+window.addEventListener('stockDataReceived', function(event) {
+  var data = event.detail;
+  updateChart(data);
 });
