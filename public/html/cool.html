@@ -327,21 +327,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="dropdown mb-4">
-                            <button class="btn btn-primary dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                Stocks
-                            </button>
-                            <div class="dropdown-menu animated--fade-in"
-                                aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onclick="getData('URA')">URA</a>
-                                <a class="dropdown-item" href="#" onclick="getData('TSLA')">TSLA</a>
-                                <a class="dropdown-item" href="#" onclick="getData('CPE')">CPE</a>
-                                <a class="dropdown-item" href="#" onclick="getData('WIX')">WIX</a>
-                                
-                            </div>
-                        </div>
+                        <form action="/action_page.php">
+                            <input type="hidden" name="choice" id="choice">
+                            <select name="stock" id="stock">
+                              <label for="stock">Stock</label>
+                              <option value="URA">URA</option>
+                              <option value="TSLA">TSLA</option>
+                              <option value="CPE">CPE</option>
+                              <option value="WIX">WIX</option>
+                              <option value="AAPL">AAPL</option>
+                            </select>
+                          
+                            <input type="hidden" name="timePeriod" id="timePeriod">
+                            <select name="timePeriod" id="timePeriod">
+                              <label for="timePeriod">Time Period</label>
+                              <option value="1min">1 Minutes</option>
+                              <option value="5min">5 Minutes</option>
+                              <option value="1day">1 Day</option>
+                              <option value="1month">1 Week</option>
+                              <option value="3month">1 Month</option>
+                            </select>
+
+                            <input type="hidden" name="info" id="info">
+                            <select name="info" id="info">
+                              <label for="info">info</label>
+                              <option value="open">open</option>
+                              <option value="high">high</option>
+                              <option value="low">low</option>
+                              <option value="close">close</option>
+                            </select>
+                          
+                            <input type="submit" onclick="getData()" value="Submit">
+                          </form>
 
                     </div>
 
@@ -409,7 +426,18 @@
     <script src="../js/chart-area-demo.js"></script>
 	<script>
         function getData(symbol) {
-        const requestBody = JSON.stringify({ symbol });
+        const stock = document.getElementById("stock").value;
+    	const timePeriod = document.getElementById("timePeriod").value;
+        if (timePeriod === "1min" || timePeriod === "5min") {
+            apiFunction = "TIME_SERIES_INTRADAY"; // Set the constValue to "x" if timePeriod is "1m"
+        } 
+        else if (timePeriod === "1day") {
+            apiFunction = "TIME_SERIES_DAILY"; // Set the constValue to "z" if timePeriod is "3m"
+        }
+        else if (timePeriod === "1month" || timePeriod === "3month") {
+            apiFunction = "TIME_SERIES_MONTHLY"; // Set the constValue to "y" for any other timePeriod value
+        }
+        const requestBody = JSON.stringify({ stock, timePeriod, apiFunction });
         fetch('/api/stocks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -417,7 +445,6 @@
         })
         .then(response => response.json())
         .then(data => {
-            alert('all good in the hhoood');
             alert(data.object)
             // Dispatch a custom event with the data
             window.dispatchEvent(new CustomEvent('stockDataReceived', { detail: data.object }));

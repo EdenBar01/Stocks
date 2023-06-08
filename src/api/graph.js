@@ -3,9 +3,9 @@ const router = express.Router();
 const request = require('request');
 
 router.post('/stocks', (req, res) => {
-  const { symbol } = req.body;
+  const { stock, timePeriod, apiFunction } = req.body;
   const apiKey = process.env.API_KEY;
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${apiKey}`;
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stock}&interval=${timePeriod}&apikey=${apiKey}`;
   request.get({
     url: url,
     json: true,
