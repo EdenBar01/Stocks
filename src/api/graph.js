@@ -3,9 +3,13 @@ const router = express.Router();
 const request = require('request');
 
 router.post('/stocks', (req, res) => {
-  const { stock, timePeriod, apiFunction } = req.body;
+  const { stock, timePeriod, apiFunction, filter } = req.body;
   const apiKey = process.env.API_KEY;
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stock}&interval=${timePeriod}&apikey=${apiKey}`;
+  let url = `https://www.alphavantage.co/query?function=${apiFunction}&symbol=${stock}&apikey=${apiKey}`;
+  if (apiFunction === "TIME_SERIES_INTRADAY") {
+     url = url + `&interval=${timePeriod}`;
+  }
+  console.log(url);
   request.get({
     url: url,
     json: true,
@@ -19,9 +23,15 @@ router.post('/stocks', (req, res) => {
         res.json({ success: false, statusCode: response.statusCode, error: response.body });
       } else {
         // Data is successfully parsed as a JSON object
-        console.log("api call successful")
-        const openValues = Object.values(data['Time Series (5min)'])//.map(item => parseFloat(item['1. open']));
-        res.json({success: true, object: openValues });
+        console.log("api call successful");
+        console.log(filter);
+        const metaData = Object.values(data)[0];
+        const values = Object.values(data)[1]
+        const stockPrice = Object.values(values).map(obj => obj[filter]).reverse();  //.map(//.map(item => parseFloat(item[info]));
+        const label = Object.keys(values).reverse()
+        console.log(label);
+        console.log(stockPrice);
+        res.json({success: true, stockPrice : stockPrice, label : label, metaData: metaData});
       }});
 });
 

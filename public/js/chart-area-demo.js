@@ -132,10 +132,14 @@ var myLineChart = new Chart(ctx, {
 // }
 
 function updateChart(data) {
-  const chart = myLineChart; // Get a reference to the existing chart
-  const labels = Array.from({ length: data.length }, (_, i) => `Label ${i + 1}`);
+  const chart = myLineChart;
+  const labels = data.label;
+
+  //const labels = data.labels;
+  const stockPrice = data.stockPrice;
+  const values = stockPrice.map(price => parseFloat(price))
   if (chart) {
-    chart.data.datasets[0].data = data;
+    chart.data.datasets[0].data = values;
     chart.data.labels = labels;
     chart.update();
   }

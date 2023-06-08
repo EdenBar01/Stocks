@@ -327,9 +327,9 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="/action_page.php">
+                        <form id="GetStockForm">
                             <input type="hidden" name="choice" id="choice">
-                            <select name="stock" id="stock">
+                            <select name="stock" id="stockSelect">
                               <label for="stock">Stock</label>
                               <option value="URA">URA</option>
                               <option value="TSLA">TSLA</option>
@@ -338,8 +338,8 @@
                               <option value="AAPL">AAPL</option>
                             </select>
                           
-                            <input type="hidden" name="timePeriod" id="timePeriod">
-                            <select name="timePeriod" id="timePeriod">
+                            <input type="hidden" name="choice" id="choice">
+                            <select name="timePeriod" id="timePeriodSelect">
                               <label for="timePeriod">Time Period</label>
                               <option value="1min">1 Minutes</option>
                               <option value="5min">5 Minutes</option>
@@ -348,16 +348,16 @@
                               <option value="3month">1 Month</option>
                             </select>
 
-                            <input type="hidden" name="info" id="info">
-                            <select name="info" id="info">
+                            <input type="hidden" name="choice" id="choice">
+                            <select name="info" id="infoSelect">
                               <label for="info">info</label>
-                              <option value="open">open</option>
-                              <option value="high">high</option>
-                              <option value="low">low</option>
-                              <option value="close">close</option>
+                              <option value="1. open">open</option>
+                              <option value="2. high">high</option>
+                              <option value="3. low">low</option>
+                              <option value="4. close">close</option>
                             </select>
-                          
-                            <input type="submit" onclick="getData()" value="Submit">
+
+                            <input type="submit" value="Submit">
                           </form>
 
                     </div>
@@ -424,36 +424,39 @@
 
     <!-- Page level custom scripts -->
     <script src="../js/chart-area-demo.js"></script>
-	<script>
-        function getData(symbol) {
-        const stock = document.getElementById("stock").value;
-    	const timePeriod = document.getElementById("timePeriod").value;
-        if (timePeriod === "1min" || timePeriod === "5min") {
-            apiFunction = "TIME_SERIES_INTRADAY"; // Set the constValue to "x" if timePeriod is "1m"
-        } 
-        else if (timePeriod === "1day") {
-            apiFunction = "TIME_SERIES_DAILY"; // Set the constValue to "z" if timePeriod is "3m"
-        }
-        else if (timePeriod === "1month" || timePeriod === "3month") {
-            apiFunction = "TIME_SERIES_MONTHLY"; // Set the constValue to "y" for any other timePeriod value
-        }
-        const requestBody = JSON.stringify({ stock, timePeriod, apiFunction });
-        fetch('/api/stocks', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: requestBody
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.object)
-            // Dispatch a custom event with the data
-            window.dispatchEvent(new CustomEvent('stockDataReceived', { detail: data.object }));
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        }
 
+	<script>
+        document.getElementById("GetStockForm").addEventListener("submit", function(event) { 
+            event.preventDefault();
+
+            const stock = document.getElementById("stockSelect").value;
+            const timePeriod = document.getElementById("timePeriodSelect").value;
+            const filter = document.getElementById("infoSelect").value;
+            let apiFunction;
+            if (timePeriod === "1min" || timePeriod === "5min") {
+                apiFunction = "TIME_SERIES_INTRADAY"; // Set the constValue to "x" if timePeriod is "1m"
+            } 
+            else if (timePeriod === "1day") {
+                apiFunction = "TIME_SERIES_DAILY"; // Set the constValue to "z" if timePeriod is "3m"
+            }
+            else if (timePeriod === "1month" || timePeriod === "3month") {
+                apiFunction = "TIME_SERIES_MONTHLY"; // Set the constValue to "y" for any other timePeriod value
+            }
+            const requestBody = JSON.stringify({ stock, timePeriod, apiFunction, filter });
+            fetch('/api/stocks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: requestBody
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Dispatch a custom event with the data
+                window.dispatchEvent(new CustomEvent('stockDataReceived', { detail : data }));
+            }) 
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        })
 	</script>
 </body>
 
