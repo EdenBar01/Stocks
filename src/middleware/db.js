@@ -32,7 +32,7 @@ module.exports = () =>{
       console.log('User table created');
     }
   })
-
-
-  return connection;
+  module.exports.connection = connection; // Export the connection constant separately
 };
+
+

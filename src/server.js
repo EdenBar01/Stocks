@@ -8,18 +8,21 @@ const coolRoute = require('./routes/cooler');
 const Path = require('path');
 const authRouter = require('./routes/auth');
 const apiRouter = require('./api/graph');
+
+
 // Create an Express application
 const app = express();
+const publicPath = Path.join(__dirname, '../public');
 
 // user dependencies
-app.use(express.static('public'));
+app.use(express.static(publicPath));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// set database
-const connection = db();
 
+// set database
+const connection =  db();
 app.use('/auth',authRouter);
 
 app.use('/api', apiRouter);
