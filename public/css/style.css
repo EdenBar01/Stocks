@@ -23,6 +23,7 @@ h1 {
 label {
     display: block;
     margin-bottom: 10px;
+    font-size:large ;
 }
 
 input[type="text"],
@@ -43,6 +44,10 @@ button[type="submit"] {
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 35px;
+    width: 80%;
+    font-size: large;
 }
 
 button[type="submit"]:hover {
@@ -52,6 +57,17 @@ button[type="submit"]:hover {
 .forgot-password,
 .create-account {
     display: block;
-    margin-top: 20px;
     text-align: center;
+}
+.before-submit{
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 20px;
+}
+.remember-me{
+    display: flex;
+}
+.before-submit label{
+    margin-bottom: 0;
+    font-size: medium;
 }
