@@ -12,6 +12,10 @@ router.get('/signup', (req, res) => {
   res.sendFile(Path.join(__dirname, '../../public/html/signUp.html'));
 });
 
+router.get('/contactus', (req, res) => {
+  res.sendFile(Path.join(__dirname, '../../public/html/contactUs.html'));
+});
+
 // Wrap the login route handler in an async function
 router.post('/login', async (req, res) => {
   // Access the data from req.body
