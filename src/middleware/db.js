@@ -26,12 +26,33 @@ module.exports = () =>{
     password VARCHAR(255) NOT NULL
   )
   `;
+
+  const createFavoriteTableQuery = `
+  CREATE TABLE favorites (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    stock VARCHAR(255) NOT NULL,
+    time_period VARCHAR(255) NOT NULL,
+    info VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  )
+  `;
+
   connection.query(createUserTableQuery, (errpr) => {
     if (errpr) throw errpr;
     else {
       console.log('User table created');
     }
   })
+
+  connection.query(createFavoriteTableQuery, (errpr) => {
+    if (errpr) throw errpr;
+    else {
+      console.log('User table created');
+    }
+  })
+  
   module.exports.connection = connection; // Export the connection constant separately
 };
 

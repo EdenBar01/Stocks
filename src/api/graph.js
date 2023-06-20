@@ -64,4 +64,25 @@ router.get('/stocks', (req, res) => {
       res.json({success: true, stockPrice : stockPrice, label : label, metaData: metaData});
     }});
 });
+
+router.post('/addToFavorites', (req, res) => {
+  console.log("url1");
+
+  const jwt = require('jsonwebtoken');
+  const { stock, timePeriod, info } = req.body;
+  const token = req.cookies.token;
+  const decoded = jwt.decode(token);
+  const user_id = decoded.id;
+  const query = 'INSERT INTO favorites (user_id, stock, time_period, info) VALUES (?, ?, ?, ?)';
+  connection.query(query, [user_id, stock, timePeriod, info], (err, result) => {
+    if (err) {
+      console.error('Error adding stock to favorites:', err);
+      res.status(500).json({ error: 'Failed to add stock to favorites' });
+      return;
+    }
+    // Return a success response
+    res.json({ success: true, message: 'Stock added to favorites' });
+  });
+});
+
 module.exports = router;

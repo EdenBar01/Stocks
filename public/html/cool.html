@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Charts</title>
+    <title>Stocks Search 2 - Charts</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,7 +36,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Stocks Search </div>
             </a>
 
             <!-- Divider -->
@@ -52,18 +52,8 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item active">
@@ -76,7 +66,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Your Favorite Stocks</span></a>
             </li>
 
             <!-- Divider -->
@@ -305,10 +295,8 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
-                        The charts below have been customized - for further customization options, please visit the <a
-                            target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
-                            documentation</a>.</p>
+                    <p class="mb-4">This Stock Is Stocks Website</p>
+                            </a></p>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -329,45 +317,32 @@
                         </div>
                         <form id="GetStockForm">
                             <input type="hidden" name="choice" id="choice">
-                            <!-- <select name="stock" id="stockSelect">
-                              <label for="stock">Stock</label>
-                              <option value="URA">URA</option>
-                              <option value="TSLA">TSLA</option>
-                              <option value="CPE">CPE</option>
-                              <option value="WIX">WIX</option>
-                              <option value="AAPL">AAPL</option>
-                            </select> -->
-                                <label for="stockSearch">Stock Search:</label>
-                                <input type="text" name="stockSearch" id="stockSearch">
-                                <div id="suggestionDropdown"></div>
-
-                            <input type="hidden" name="choice" id="choice">
-                            <select name="timePeriod" id="timePeriodSelect">
-                              <label for="timePeriod">Time Period</label>
-                              <option value="1min">1 Minutes</option>
-                              <option value="5min">5 Minutes</option>
-                              <option value="1month">1 Week</option>
-                              <option value="3month">1 Month</option>
-                            </select>
-
-                            <input type="hidden" name="choice" id="choice">
-                            <select name="info" id="infoSelect">
-                              <label for="info">info</label>
-                              <option value="1. open">open</option>
-                              <option value="2. high">high</option>
-                              <option value="3. low">low</option>
-                              <option value="4. close">close</option>
-                            </select>
-
-                            <input type="submit" value="Submit">
-                          </form>
-                        <!-- <form id="StockSearchForm">
                             <label for="stockSearch">Stock Search:</label>
                             <input type="text" name="stockSearch" id="stockSearch">
                             <div id="suggestionDropdown"></div>
-                            <input type="submit" value="Search">
-                        </form> -->
-
+                        
+                            <input type="hidden" name="choice" id="choice">
+                            <select name="timePeriod" id="timePeriodSelect">
+                                <label for="timePeriod">Time Period</label>
+                                <option value="1min">1 Minute</option>
+                                <option value="5min">5 Minutes</option>
+                                <option value="1month">1 Week</option>
+                                <option value="3month">1 Month</option>
+                            </select>
+                        
+                            <input type="hidden" name="choice" id="choice">
+                            <select name="info" id="infoSelect">
+                                <label for="info">Info</label>
+                                <option value="1. open">Open</option>
+                                <option value="2. high">High</option>
+                                <option value="3. low">Low</option>
+                                <option value="4. close">Close</option>
+                            </select>
+                        
+                            <input type="submit" value="Submit" id="submitFormButton">
+                            <button type="button" id="addToFavoritesButton">Add to Favorites</button>
+                        </form>
+                        
                     </div>
 
                 </div>
@@ -468,63 +443,92 @@
 	</script>
 
 <script>
-    function fetchStockSuggestions(searchTerm) {
-      var apiKey = 'YOUR_API_KEY'; // Replace with your Alpha Vantage API key
-      var url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${apiKey}`;
-      console.log(url);
-      alert(url);
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const suggestionDropdown = document.getElementById('suggestionDropdown');
-          suggestionDropdown.innerHTML = '';
-  
-          if (data.bestMatches) {
-            // Create and append suggestion items to the dropdown
-            data.bestMatches.forEach(stock => {
-              const suggestionItem = document.createElement('div');
-              suggestionItem.textContent = stock['1. symbol'];
-              suggestionItem.classList.add('suggestion');
-              suggestionItem.addEventListener('click', () => {
-                document.getElementById('stockSearch').value = stock['1. symbol'];
+            function fetchStockSuggestions(searchTerm) {
+                var apiKey = 'YOUR_API_KEY'; // Replace with your Alpha Vantage API key
+                var url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${apiKey}`;
+                console.log(url);
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                    const suggestionDropdown = document.getElementById('suggestionDropdown');
+                    suggestionDropdown.innerHTML = '';
+            
+                    if (data.bestMatches) {
+                        // Create and append suggestion items to the dropdown
+                        data.bestMatches.forEach(stock => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.textContent = stock['1. symbol'];
+                        suggestionItem.classList.add('suggestion');
+                        suggestionItem.addEventListener('click', () => {
+                            document.getElementById('stockSearch').value = stock['1. symbol'];
+                            suggestionDropdown.innerHTML = '';
+                        });
+                        suggestionDropdown.appendChild(suggestionItem);
+                        });
+                    }
+                    })
+                    .catch(error => {
+                    console.error('Error fetching stock suggestions:', error);
+                    });
+            }
+        
+            const stockSearchInput = document.getElementById('stockSearch');
+            const suggestionDropdown = document.getElementById('suggestionDropdown');
+            let searchTimeout;
+            stockSearchInput.addEventListener('input', event => {
+            const searchTerm = event.target.value.trim();
+        
+            // Clear suggestion dropdown if the search box is empty
+            if (searchTerm === '') {
                 suggestionDropdown.innerHTML = '';
-              });
-              suggestionDropdown.appendChild(suggestionItem);
+                return;
+            }
+        
+            // Clear previous search timeout if present
+            clearTimeout(searchTimeout);
+        
+            // Set a timeout to delay the search API call
+            searchTimeout = setTimeout(() => {
+                fetchStockSuggestions(searchTerm);
+            }, 500);
             });
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching stock suggestions:', error);
-        });
-    }
-  
-    const stockSearchInput = document.getElementById('stockSearch');
-    const suggestionDropdown = document.getElementById('suggestionDropdown');
-    let searchTimeout;
-  
-    stockSearchInput.addEventListener('input', event => {
-      const searchTerm = event.target.value.trim();
-  
-      // Clear suggestion dropdown if the search box is empty
-      if (searchTerm === '') {
-        suggestionDropdown.innerHTML = '';
-        return;
-      }
-  
-      // Clear previous search timeout if present
-      clearTimeout(searchTimeout);
-  
-      // Set a timeout to delay the search API call
-      searchTimeout = setTimeout(() => {
-        fetchStockSuggestions(searchTerm);
-      }, 500);
-    });
-  
-    document.getElementById('StockSearchForm').addEventListener('submit', event => {
-      event.preventDefault();
-      const selectedStock = stockSearchInput.value;
-      console.log('Selected stock:', selectedStock);
-    });
+        
+
+            // Add an event listener to the form submission
+            document.getElementById('addToFavoritesButton').addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const stock = document.getElementById('stockSearch').value;
+                const timePeriod = document.getElementById('timePeriodSelect').value;
+                const info = document.getElementById('infoSelect').value;
+                // Create the stockDetails object with the necessary properties
+                
+
+                // Save the selected stock and its details to favorites
+                addToFavorites(stock, timePeriod, info);
+            });
+
+            function addToFavorites(stock, timePeriod, info) {
+                const requestBody = JSON.stringify({ stock, timePeriod, info });
+                alert(requestBody)
+
+                // Send an HTTP request to the server to add the stock to favorites
+                fetch('/api/addToFavorites', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: requestBody
+                })
+                .then(response => response.json())
+                .then(data => {
+                // Handle the response from the server
+                console.log('Stock added to favorites:', data);
+                })
+                .catch(error => {
+                console.error('Error adding stock to favorites:', error);
+                });
+            }
+
+
   </script>
   <style>
     #suggestionDropdown {
