@@ -329,15 +329,18 @@
                         </div>
                         <form id="GetStockForm">
                             <input type="hidden" name="choice" id="choice">
-                            <select name="stock" id="stockSelect">
+                            <!-- <select name="stock" id="stockSelect">
                               <label for="stock">Stock</label>
                               <option value="URA">URA</option>
                               <option value="TSLA">TSLA</option>
                               <option value="CPE">CPE</option>
                               <option value="WIX">WIX</option>
                               <option value="AAPL">AAPL</option>
-                            </select>
-                          
+                            </select> -->
+                                <label for="stockSearch">Stock Search:</label>
+                                <input type="text" name="stockSearch" id="stockSearch">
+                                <div id="suggestionDropdown"></div>
+
                             <input type="hidden" name="choice" id="choice">
                             <select name="timePeriod" id="timePeriodSelect">
                               <label for="timePeriod">Time Period</label>
@@ -358,12 +361,12 @@
 
                             <input type="submit" value="Submit">
                           </form>
-                        <form id="StockSearchForm">
+                        <!-- <form id="StockSearchForm">
                             <label for="stockSearch">Stock Search:</label>
                             <input type="text" name="stockSearch" id="stockSearch">
                             <div id="suggestionDropdown"></div>
                             <input type="submit" value="Search">
-                        </form>
+                        </form> -->
 
                     </div>
 
@@ -434,7 +437,7 @@
         document.getElementById("GetStockForm").addEventListener("submit", function(event) { 
             event.preventDefault();
 
-            const stock = document.getElementById("stockSelect").value;
+            const stock = document.getElementById("stockSearch").value;
             const timePeriod = document.getElementById("timePeriodSelect").value;
             const filter = document.getElementById("infoSelect").value;
             let apiFunction;
