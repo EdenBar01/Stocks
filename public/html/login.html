@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Screen</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+	<title>Bootstrap Example</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+	<script>
+		function login() {
+			const username = document.getElementById("username").value;
+    		const password = document.getElementById("password").value;
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.,><])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.,><]{6,}$/;
+		    if (passwordRegex.test(password) && emailRegex.test(username)) {
+				return;
+			}
+			const requestBody = JSON.stringify({ username, password });
+			fetch('/auth/login', {
+          			method: 'POST',
+          			headers: {'Content-Type': 'application/json'},
+          			body: requestBody
+        		  })
+				  .then(response => response.json())
+				.then(data => {
+					// Handle the response data
+					if (data.success) {
+						window.location.href = data.redirect;
+						alert(data.message);
+					} else {
+					alert('Invalid username or password. Please try again.');
+					}
+				})
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>Log In to your account</h1>
+		<form>
+			<label for="username">Email or Phone or Username:</label>
+			<input type="text" id="username" name="username">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+
+			<button type="submit" onclick="login()">Log In</button>
+		</form>
+
+		<a href="#" class="forgot-password">Forgot Password?</a>
+
+		<span class="create-account">Need to create an account? <a href="/auth/signup">Sign Up</a></span>
+	</div>
+</body>
+</html>

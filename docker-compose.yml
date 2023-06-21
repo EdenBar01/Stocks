@@ -1,18 +1,30 @@
 version: '3'
 services:
   app:
-    build: .
+    build:
+      dockerfile: Dockerfile.debug
     ports:
       - 8000:8000
+      - 9229:9229
     depends_on:
-      - db
+      - mysql_server
     restart: always
-    links:
-      - db
-    command:
-      sh -c "sleep 5 && node server.js"
+    environment: 
+      - MYSQL_HOST=${MYSQLCONTAINER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    command: sh -c "sleep 3 && node ./src/server.js"
 
-  db:
-    image: ariadb:latest
+  mysql_server:
+    image: mysql:8.0
+    container_name: ${MYSQLCONTAINER}
     ports:
-      - 27017:27017
+        - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - API_KEY=${API_KEY}

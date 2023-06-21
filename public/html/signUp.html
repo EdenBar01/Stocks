@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<script>
+		function submitSignupForm() {
+			const username = document.getElementById('email').value;
+			const password = document.getElementById('password').value;
+			const confirmPassword = document.getElementById('confirm-password').value;
+			console.log('Email:', email);
+    		console.log('Password:', password);
+    		console.log('Confirm Password:', confirmPassword);
+			// Check if the passwords match
+			if (password !== confirmPassword) {
+			alert('Passwords do not match. Please try again.');
+			return;
+			}
+		
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.,><])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.,><]{6,}$/;
+		    if (passwordRegex.test(password) || emailRegex.test(username)) {
+				return;
+			}
+			 else {
+				const requestBody = JSON.stringify({ username, password });
+
+				// Send the request
+				fetch('/auth/register', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: requestBody
+				})
+				.then(response => response.json())
+				.then(data => {
+					// Handle the response data
+					if (data.success) {
+						alert(data.message);
+					} else {
+					alert('Invalid username or password. Please try again.');
+					}
+				})
+				.catch(error => {
+					console.error('An error occurred:', error);
+					alert(error);
+				});
+			}
+		}
+	</script>
+
+</head>
+<body>	<div class="container">
+		<h1>Create an Account</h1>
+		<form>
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+
+			<label for="confirm-password">Confirm Password:</label>
+			<input type="password" id="confirm-password" name="confirm-password">
+
+			<button type="submit" onclick="submitSignupForm()">Create My Account</button>
+		</form>
+
+		<span class="login-link">Already have an account? <a href="/">Log in here</a></span>
+	</div>
+</body>
+</html>
