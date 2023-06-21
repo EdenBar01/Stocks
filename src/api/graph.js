@@ -65,8 +65,8 @@ router.get('/stocks', (req, res) => {
     }});
 });
 
+
 router.post('/addToFavorites', (req, res) => {
-  console.log("url1");
 
   const jwt = require('jsonwebtoken');
   const { stock, timePeriod, info } = req.body;
@@ -82,6 +82,23 @@ router.post('/addToFavorites', (req, res) => {
     }
     // Return a success response
     res.json({ success: true, message: 'Stock added to favorites' });
+  });
+});
+
+router.get('/getFavorites/', (req, res) => {
+  const jwt = require('jsonwebtoken');
+  const token = req.cookies.token;
+  const decoded = jwt.decode(token);
+  const user_id = decoded.id;
+  const query = 'SELECT * FROM favorites WHERE user_id = ' + user_id + ';';
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.error('Error retrieving favorites:', err);
+      res.status(500).json({ error: 'Failed to retrieve favorites' });
+      return;
+    }
+
+    res.json(result);
   });
 });
 

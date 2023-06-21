@@ -18,26 +18,27 @@ module.exports = () =>{
       
     });
 
-  // Create the user table
-  const createUserTableQuery = `
-  CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-  )
-  `;
+// Create the user table
+const createUserTableQuery = `
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+)
+`;
 
-  const createFavoriteTableQuery = `
-  CREATE TABLE favorites (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    stock VARCHAR(255) NOT NULL,
-    time_period VARCHAR(255) NOT NULL,
-    info VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-  )
-  `;
+const createFavoriteTableQuery = `
+CREATE TABLE IF NOT EXISTS favorites (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  stock VARCHAR(255) NOT NULL,
+  time_period VARCHAR(255) NOT NULL,
+  info VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)
+`;
+
 
   connection.query(createUserTableQuery, (errpr) => {
     if (errpr) throw errpr;
