@@ -27,11 +27,16 @@ router.post('/stocks', (req, res) => {
         console.log(filter);
         const metaData = Object.values(data)[0];
         const values = Object.values(data)[1]
-        const stockPrice = Object.values(values).map(obj => obj[filter]).reverse();  //.map(//.map(item => parseFloat(item[info]));
-        const label = Object.keys(values).reverse()
-        console.log(label);
-        console.log(stockPrice);
-        res.json({success: true, stockPrice : stockPrice, label : label, metaData: metaData});
+        if (values === undefined || values === null) {
+          console.log("Data is null. That what happen when you use free api...");
+          res.json({ success: false, message: "Data is null. Please try again." });
+        } else {
+          const stockPrice = Object.values(values).map(obj => obj[filter]).reverse(); 
+          const label = Object.keys(values).reverse()
+          console.log(label);
+          console.log(stockPrice);
+          res.json({success: true, stockPrice : stockPrice, label : label, metaData: metaData});
+      }
       }});
 });
 
@@ -90,7 +95,7 @@ router.post('/addToFavorites', (req, res) => {
   const token = req.cookies.token;
   const decoded = jwt.decode(token);
   const user_id = decoded.id;
-  const query = 'INSERT INTO favorites (user_id, stock, time_period, info) VALUES (?, ?, ?, ?)';
+  const query = 'INSERT IGNORE INTO favorites (user_id, stock, time_period, info) VALUES (?, ?, ?, ?)';
   connection.query(query, [user_id, stock, timePeriod, info], (err, result) => {
     if (err) {
       console.error('Error adding stock to favorites:', err);
