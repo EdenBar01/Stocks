@@ -61,7 +61,7 @@
 					<div class="form-group">
 						<textarea class="form-control" rows="5" id="message" placeholder="Message*" name="message" required></textarea>
 					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary" onclick="showSuccessMessage()">Submit</button>
 				</form>
 			</div>
         </div>
@@ -89,15 +89,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <script>
-        $('#contact-form').submit(function() {
+					function showSuccessMessage() {
+            alert('Message has been sent.');
+        }
+
+        $('#contact-form').submit(function(e) {
+            e.preventDefault(); // Prevent form submission
             var name = $('#name').val();
             var email = $('#email').val();
             var subject = $('#subject').val();
             if (name.trim() == '' || email.trim() == '' || subject.trim() == '') {
                 alert('Please fill in all required fields.');
-                return false;
+                return;
             }
-            return true;
+            window.location.href = "login.html";
         });
     </script>
     
