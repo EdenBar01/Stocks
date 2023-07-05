@@ -33,8 +33,7 @@ CREATE TABLE IF NOT EXISTS favorites (
   stock VARCHAR(255) NOT NULL,
   time_period VARCHAR(255) NOT NULL,
   info VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id, user_id, stock, time_period, info),
+  PRIMARY KEY (user_id, stock, time_period, info),
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
 `;

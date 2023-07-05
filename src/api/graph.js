@@ -78,7 +78,7 @@ router.post('/addToFavorites', (req, res) => {
   const token = req.cookies.token;
   const decoded = jwt.decode(token);
   const user_id = decoded.id;
-  const query = 'INSERT INTO favorites (user_id, stock, time_period, info) VALUES (?, ?, ?, ?)';
+  const query = 'INSERT IGNORE INTO favorites (user_id, stock, time_period, info) VALUES (?, ?, ?, ?)';
   connection.query(query, [user_id, stock, timePeriod, info], (err, result) => {
     if (err) {
       console.error('Error adding stock to favorites:', err);
