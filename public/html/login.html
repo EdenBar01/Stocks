@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Login Screen</title>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -85,6 +86,7 @@ function rememberMe() {
 	<div class="container">
 		<h1>Log In to your account</h1>
 		<form onsubmit="login(event)">
+
 			<label for="username">Email or Phone or Username:</label>
 			<input type="text" id="username" name="username">
 
@@ -95,11 +97,12 @@ function rememberMe() {
                 <label class="form-check-label" for="remember">Remember Me</label>
             </div>
 			<button type="submit">Log In</button>
+
 		</form>
-
-		<a href="#" class="forgot-password">Forgot Password?</a>
-
-		<span class="create-account">Need to create an account? <a href="/auth/signup">Sign Up</a></span>
+		<div class="create-account">
+			<span><a href="/auth/signup">Sign Up</a></span>
+			<span><a href="/auth/contactus">Contact Us</a></span>
+		</div>
 	</div>
 </body>
 </html>
