@@ -13,6 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -23,7 +24,7 @@
 </head>
 
 <body id="page-top">
-    <script src="../../src/routes/graph.js" ></script>
+    <script src="../../src/routes/graph.js"></script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -202,8 +203,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -214,8 +214,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -226,8 +225,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -259,8 +257,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -294,12 +291,14 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">This Stock Is Stocks Website</p>
-                            </a></p>
+                    <h1 style="font-size: 46px; font-family: Poppins;" class="h3 mb-2 text-gray-800">Stock Price History
+                    </h1>
+                    <p class="mb-4" style="font-size:22px">"Money can be a catalyst for both freedom and bondage,
+                        depending on how it is earned, spent, and valued."</p>
+                    </a></p>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row" style="flex-direction: column;">
 
                         <div class="col-xl-8 col-lg-7">
 
@@ -315,41 +314,48 @@
                                 </div>
                             </div>
                         </div>
-                        <form id="GetStockForm">
-                            <input type="hidden" name="choice" id="choice">
-                            <label for="stockSearch">Stock Search:</label>
-                            <input type="text" name="stockSearch" id="stockSearch">
-                            <div id="suggestionDropdown"></div>
-                        
-                            <input type="hidden" name="choice" id="choice">
-                            <select name="timePeriod" id="timePeriodSelect">
-                                <label for="timePeriod">Time Period</label>
-                                <option value="1min">1 Minute</option>
-                                <option value="5min">5 Minutes</option>
-                                <option value="1month">1 Week</option>
-                                <option value="3month">1 Month</option>
-                            </select>
-                        
-                            <input type="hidden" name="choice" id="choice">
-                            <select name="info" id="infoSelect">
-                                <label for="info">Info</label>
-                                <option value="1. open">Open</option>
-                                <option value="2. high">High</option>
-                                <option value="3. low">Low</option>
-                                <option value="4. close">Close</option>
-                            </select>
-                        
-                            <input type="submit" value="Submit" id="submitFormButton">
-                            <button type="button" id="addToFavoritesButton">Add to Favorites</button>
-                        </form>
-                        <div class="small mb-1">Dropdown Button Example:</div>
-                        <div class="dropdown mb-4">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <div class="dropdown-menu animated--fade-in" style="max-height: 200px; overflow-y: auto;"
-                                aria-labelledby="dropdownMenuButton" id="dynamicDropdown">
+                        <div class="col-xl-8 col-lg-7" style="display: flex; flex-direction: row;">
+                            <form id="GetStockForm">
+                                <input type="hidden" name="choice" id="choice">
+                                <label for="stockSearch">Stock Search:</label>
+                                <input type="text" name="stockSearch" id="stockSearch">
+                                <div id="suggestionDropdown"></div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                        data-toggle="dropdown">Time Period</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item">1 Minute</a>
+                                        <a class="dropdown-item">5 Minutes</a>
+                                        <a class="dropdown-item">1 Week</a>
+                                        <a class="dropdown-item">1 Month</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                        data-toggle="dropdown">Info</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item">Open</a>
+                                        <a class="dropdown-item">High</a>
+                                        <a class="dropdown-item">Low</a>
+                                        <a class="dropdown-item">Close</a>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-outline-primary" value="Submit"
+                                    id="submitFormButton">
+                                <button type="button" class="btn btn-outline-primary" id="addToFavoritesButton">Add to
+                                    Favorites</button>
+                            </form>
+                            <div class="dropdown mb-4" style="margin-left: 5px;">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Favorites
+                                </button>
+                                <div class="dropdown-menu animated--fade-in"
+                                    style="max-height: 200px; overflow-y: auto;" aria-labelledby="dropdownMenuButton"
+                                    id="dynamicDropdown">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -416,25 +422,25 @@
 
     <!-- Page level custom scripts -->
     <script src="../js/chart-area-demo.js"></script>
-  <style>
-    #suggestionDropdown {
-        position: absolute;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        width: 200px;
-    }
+    <style>
+        #suggestionDropdown {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 200px;
+        }
 
-    .suggestion {
-        padding: 5px;
-        cursor: pointer;
-    }
+        .suggestion {
+            padding: 5px;
+            cursor: pointer;
+        }
 
-    .suggestion:hover {
-        background-color: #f1f1f1;
-    }
-</style>
+        .suggestion:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </body>
 
 </html>
