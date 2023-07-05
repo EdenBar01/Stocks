@@ -1,65 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 
 	<title>Contact Us</title>
 	<!-- Bootstrap CSS -->
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https: //maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" integrity="..." crossorigin="anonymous" />
-    <style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" integrity="..."
+		crossorigin="anonymous" />
+	<style>
 		@media (min-width: 768px) {
 			.col-md-6 {
 				border-left: 1px solid #ddd;
-                flex: auto;
-                
+				flex: auto;
+
 			}
-            .container my-5{
-                flex: auto;
-            }
-            i{
-                font-size:x-large;
-            }
+
+			.container my-5 {
+				flex: auto;
+			}
+
+			i {
+				font-size: x-large;
+			}
 		}
 	</style>
 
 </head>
+
 <body>
 	<div class="container">
 		<h1>Contact Us</h1>
 		<div class="row">
 			<div class="col-md-8 mb-3">
-                <div class="card">
-				<form id="contact-form" method="post" action="">
-					<div class="form-group">
-						<input type="text" class="form-control" id="name" placeholder="Name*" name="name" required>
+				<div class="card">
+					<div class="card-body">
+						<form id="contact-form" method="post" action="">
+							<div class="form-group">
+								<input type="text" class="form-control" id="name" placeholder="Name*" name="name"
+									style="margin-bottom: 10px;" required>
+								<input type="email" class="form-control" id="email" placeholder="Email*" name="email"
+									required>
+								<select class="form-control" id="subject" name="subject" required
+									style="margin-top: 10px; margin-bottom: 10px; height: fit-content;">
+									<option value="" disabled selected>Select a subject*</option>
+									<option value="General inquiry">General inquiry</option>
+									<option value="Technical support">Technical support</option>
+									<option value="Billing and payments">Billing and payments</option>
+								</select>
+								<textarea class="form-control" rows="5" id="message" placeholder="Message*"
+									name="message" required></textarea>
+							</div>
+							<div style="display: flex; justify-content: center; margin-left: 0px;">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</form>
 					</div>
-					<div class="form-group">
-						<input type="email" class="form-control" id="email" placeholder="Email*" name="email" required>
+				</div>
+			</div>
+			<div class="col md-4 mb-3">
+				<div class="card" style="height: fit-content; margin-bottom: 9px;">
+					<div class="card-body">
+						<h4>About Us</h4>
+						<p>We are a company that provides high-quality products and services to our customers.<br> If
+							you have any questions or comments, please feel free to contact us.</p>
 					</div>
-					<div class="form-group">
-						<select class="form-control" id="subject" name="subject" required>
-							<option value="" disabled selected>Select a subject*</option>
-							<option value="General inquiry">General inquiry</option>
-							<option value="Technical support">Technical support</option>
-							<option value="Billing and payments">Billing and payments</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<textarea class="form-control" rows="5" id="message" placeholder="Message*" name="message" required></textarea>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<h4>Contact Information</h4>
+						<ul>
+							<div><i class="fa-regular fa-phone-rotary"></i> Call us: 1-800-555-1234</div>
+							<div><i class="fa-regular fa-circle-envelope"></i> Email us: info@yourcompany.com</div>
+							<div><i class="fa-regular fa-sack-dollar"></i> Sales hours: Mon-Fri 9am-5pm</div>
+						</ul>
+						<a href="mailto:support@yourcompany.com" class="btn btn-secondary">Contact Support</a>
 					</div>
 					<button type="submit" class="btn btn-primary" onclick="showSuccessMessage()">Submit</button>
 				</form>
@@ -78,9 +108,10 @@
 					<div><i class="fa-regular fa-sack-dollar"></i> Sales hours: Mon-Fri 9am-5pm</div>
 				</ul>
 				<a href="mailto:support@yourcompany.com" class="btn btn-secondary">Contact Support</a>
+
 			</div>
 		</div>
-    </div>
+	</div>
 	</div>
 
 	<!-- Bootstrap JS and jQuery -->
@@ -107,4 +138,5 @@
     </script>
     
 </body>
+
 </html>
